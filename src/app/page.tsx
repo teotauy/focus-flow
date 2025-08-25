@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Settings } from 'lucide-react';
+import { SessionProvider } from 'next-auth/react';
+import CalendarService from '../components/CalendarService';
 
 const CalendarProductivityApp = () => {
 
@@ -11,6 +13,7 @@ const CalendarProductivityApp = () => {
   const [showBreathingModal, setShowBreathingModal] = useState(false);
   const [isTodayOpen, setIsTodayOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [calendarEvents, setCalendarEvents] = useState<any[]>([]);
   const [mockEvents] = useState([
     {
       id: 1,
@@ -274,63 +277,9 @@ const CalendarProductivityApp = () => {
 
             {/* Calendar Integration */}
             <div className="mb-16">
-              <h2 className="text-xl font-light text-black mb-8">Calendar Integration</h2>
-              
-              <div className="flex space-x-4 mb-8">
-                <button className="px-6 py-3 border border-gray-200 rounded hover:border-gray-400 transition-colors font-light text-sm">
-                  Add Google Calendar
-                </button>
-                <button className="px-6 py-3 border border-gray-200 rounded hover:border-gray-400 transition-colors font-light text-sm">
-                  Add Outlook Calendar
-                </button>
-                <button className="px-6 py-3 border border-gray-200 rounded hover:border-gray-400 transition-colors font-light text-sm">
-                  Add iCloud Calendar
-                </button>
-              </div>
-
-              {/* Connected Calendars */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between py-4 border-b border-gray-100">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                    <span className="font-light">Work Calendar</span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <span className="text-sm text-gray-500 font-light">Default for tasks</span>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between py-4 border-b border-gray-100">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span className="font-light">Personal Calendar</span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <span className="text-sm text-gray-500 font-light">Default for events</span>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between py-4 border-b border-gray-100">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                    <span className="font-light">Family</span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                </div>
-              </div>
+              <SessionProvider>
+                <CalendarService onEventsLoaded={setCalendarEvents} />
+              </SessionProvider>
             </div>
 
             {/* Account */}
