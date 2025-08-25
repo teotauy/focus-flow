@@ -14,6 +14,7 @@ const CalendarProductivityApp = () => {
   const [isTodayOpen, setIsTodayOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [calendarEvents, setCalendarEvents] = useState<Array<{ id: string; title: string; startTime: string; endTime: string; description: string; location: string; isAllDay: boolean }>>([]);
+  // TODO: Use calendarEvents to replace mockEvents when calendar is connected
   const [mockEvents] = useState([
     {
       id: 1,
