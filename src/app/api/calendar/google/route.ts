@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { google } from "googleapis";
 import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET() {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     
     if (!session?.accessToken) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
