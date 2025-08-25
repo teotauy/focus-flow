@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { Play, Pause, ChevronDown, Settings } from 'lucide-react';
 
