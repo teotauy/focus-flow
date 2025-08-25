@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 import { getServerSession } from "next-auth";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession();
     

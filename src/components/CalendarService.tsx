@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { Calendar, CheckCircle, XCircle } from 'lucide-react';
+import { Calendar, CheckCircle } from 'lucide-react';
 
 interface CalendarEvent {
   id: string;
@@ -19,7 +19,7 @@ interface CalendarServiceProps {
 }
 
 export default function CalendarService({ onEventsLoaded }: CalendarServiceProps) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [connectedCalendars, setConnectedCalendars] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +48,7 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
     }
   };
 
-  const fetchCalendarEvents = async (provider: string) => {
+  const fetchCalendarEvents = useCallback(async (provider: string) => {
     try {
       const response = await fetch(`/api/calendar/${provider}`);
       if (response.ok) {
@@ -58,7 +58,7 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
     } catch (error) {
       console.error(`Failed to fetch ${provider} calendar events:`, error);
     }
-  };
+  }, [onEventsLoaded]);
 
   useEffect(() => {
     if (session?.provider) {
@@ -67,7 +67,7 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
       );
       fetchCalendarEvents(session.provider);
     }
-  }, [session]);
+  }, [session, fetchCalendarEvents]);
 
   return (
     <div className="space-y-6">

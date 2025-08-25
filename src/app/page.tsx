@@ -13,7 +13,7 @@ const CalendarProductivityApp = () => {
   const [showBreathingModal, setShowBreathingModal] = useState(false);
   const [isTodayOpen, setIsTodayOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [calendarEvents, setCalendarEvents] = useState<any[]>([]);
+  const [calendarEvents, setCalendarEvents] = useState<Array<{ id: string; title: string; startTime: string; endTime: string; description: string; location: string; isAllDay: boolean }>>([]);
   const [mockEvents] = useState([
     {
       id: 1,

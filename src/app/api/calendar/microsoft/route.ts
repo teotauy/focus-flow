@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession();
     
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
     
-    const events = data.value?.map((event: any) => ({
+    const events = data.value?.map((event: { id: string; subject?: string; start?: { dateTime: string }; end?: { dateTime: string }; bodyPreview?: string; location?: { displayName: string }; isAllDay?: boolean }) => ({
       id: event.id,
       title: event.subject || "Untitled",
       startTime: event.start?.dateTime,
