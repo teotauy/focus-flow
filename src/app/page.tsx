@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, ChevronDown, Settings } from 'lucide-react';
+import { ChevronDown, Settings } from 'lucide-react';
 
 const CalendarProductivityApp = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+
   const [isBreathing, setIsBreathing] = useState(false);
   const [breathingPhase, setBreathingPhase] = useState('inhale');
   const [breathingCount, setBreathingCount] = useState(0);
   const [showBreathingModal, setShowBreathingModal] = useState(false);
   const [isTodayOpen, setIsTodayOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [mockEvents, setMockEvents] = useState([
+  const [mockEvents] = useState([
     {
       id: 1,
       title: "Team Standup",
@@ -50,17 +50,11 @@ const CalendarProductivityApp = () => {
     }
   ]);
 
-  // Update current time every minute
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000);
-    return () => clearInterval(timer);
-  }, []);
+
 
   // Breathing exercise logic
   useEffect(() => {
-    let breathingTimer;
+    let breathingTimer: NodeJS.Timeout | undefined;
     if (isBreathing) {
       breathingTimer = setInterval(() => {
         setBreathingPhase(prev => {
