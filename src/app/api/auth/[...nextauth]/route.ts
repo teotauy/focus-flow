@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import MicrosoftProvider from "next-auth/providers/microsoft";
 
 const handler = NextAuth({
   providers: [
@@ -10,15 +9,6 @@ const handler = NextAuth({
       authorization: {
         params: {
           scope: "openid email profile https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events",
-        },
-      },
-    }),
-    MicrosoftProvider({
-      clientId: process.env.MICROSOFT_CLIENT_ID!,
-      clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
-      authorization: {
-        params: {
-          scope: "openid email profile Calendars.Read Calendars.ReadWrite",
         },
       },
     }),

@@ -34,16 +34,7 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
     }
   };
 
-  const connectMicrosoftCalendar = async () => {
-    setLoading(true);
-    try {
-      await signIn('microsoft', { callbackUrl: window.location.href });
-    } catch (error) {
-      console.error('Failed to connect Microsoft Calendar:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   const disconnectCalendar = async (provider: string) => {
     setLoading(true);
@@ -119,8 +110,8 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
           </div>
         </div>
 
-        {/* Microsoft Calendar */}
-        <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:border-indigo-500">
+        {/* Microsoft Calendar - Coming Soon */}
+        <div className="relative rounded-lg border border-gray-300 bg-gray-50 px-6 py-5 shadow-sm flex items-center space-x-3 opacity-60">
           <div className="flex-shrink-0">
             <Calendar className="h-6 w-6 text-gray-400" />
           </div>
@@ -128,30 +119,13 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
             <div className="focus:outline-none">
               <span className="absolute inset-0" aria-hidden="true" />
               <p className="text-sm font-medium text-gray-900">Microsoft Calendar</p>
-              <p className="text-sm text-gray-500">Connect Outlook/Microsoft 365</p>
+              <p className="text-sm text-gray-500">Coming soon</p>
             </div>
           </div>
           <div className="flex-shrink-0">
-            {connectedCalendars.includes('microsoft') ? (
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <button
-                  onClick={() => disconnectCalendar('microsoft')}
-                  className="text-sm text-red-600 hover:text-red-800"
-                  disabled={loading}
-                >
-                  Disconnect
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={connectMicrosoftCalendar}
-                disabled={loading}
-                className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-              >
-                Connect
-              </button>
-            )}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+              Soon
+            </span>
           </div>
         </div>
 
