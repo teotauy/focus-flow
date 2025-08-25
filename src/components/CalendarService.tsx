@@ -61,8 +61,8 @@ export default function CalendarService({ onEventsLoaded }: CalendarServiceProps
   }, [onEventsLoaded]);
 
   useEffect(() => {
-    if (session?.provider) {
-      const provider = session.provider as string;
+    if (session && (session as any).provider) {
+      const provider = (session as any).provider as string;
       setConnectedCalendars(prev => 
         prev.includes(provider) ? prev : [...prev, provider]
       );
