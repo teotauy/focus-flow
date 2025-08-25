@@ -14,7 +14,7 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account }: any) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
@@ -23,7 +23,7 @@ const authOptions = {
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       // Send properties to the client
       session.accessToken = token.accessToken;
       session.provider = token.provider;
